@@ -18,7 +18,7 @@ router.post("/formques", tokenValidate, async (req, res) => {
     console.log(Object.values(user.forms), " ==> user object");
     user.forms.unshift(formVal._id);
     await user.save();
-    res.status(200).json({ link: `http://localhost:8000/easy/${formVal._id}` });
+    res.status(200).json({ link: `${process.env.LINK}easy/${formVal._id}` });
   } catch (error) {
     console.log(error);
     res.status(400).send("somthing went wrong ");
