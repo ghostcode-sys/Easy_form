@@ -1,0 +1,51 @@
+doctype html 
+html(leng ="eng")
+    head 
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title EasyFrom 
+        link(rel="stylesheet", href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css")
+    body.w-full.min-h-screen.bg-gradient-to-r.from-green-50.to-green-100
+        div(class="m-auto my-10 block lg:w-3/4 xl:w-3/5 w-11/12")
+            div(class="w-full bg-gray-50 border-blue-200 border-2 border-t-8 border-l-8 rounded")
+                p.border-gray-200.border-b-2.mx-4.my-4.text-4xl.font-bold 
+                 = title
+                p.border-gray-200.border-b-2.mx-4.my-4.text-lg.max-h-24.overflow-y-auto 
+                    = info
+            form(
+                action= link + "easy/" + formID 
+                class ="w-full"
+                method="POST"
+            )
+                each val in question                  
+                    div(class="w-full bg-gray-50 border-blue-200 border-2 border-t-8 border-l-8 rounded flex flex-col mt-8")
+                        label(for= val._id class="mx-4 my-2 border-b-2 border-gray-200")= val.questionData
+                        if val.quesType === "simple"
+                            input(type="text" 
+                            class="focus:outline-none border-b-2 border-gray-200 my-2 focus:border-blue-200 mx-4 focus:bg-gray-100 hover:bg-gray-100" 
+                            placeholder="Your answer"
+                            id=val._id
+                            name= val._id
+                            required= val.quesReq
+                            )
+                        else if val.quesType === "multiline"
+                            textarea(name= val._id
+                            id= val._id 
+                            cols="30" 
+                            rows="3" 
+                            class="focus:outline-none border-b-2 border-gray-200 my-2 focus:border-blue-200 mx-4 focus:bg-gray-100 hover:bg-gray-100") 
+                        else
+                            div
+                                each opt in val.quesOptions 
+                                    div(class="border-gray-200 border-b-2 w-3/4  mx-4 my-4 hover:border-blue-200")
+                                        input(
+                                        type= val.quesType 
+                                        class="focus:outline-none border-b-2 border-gray-200 focus:border-blue-200 mr-2 focus:bg-gray-100 hover:bg-gray-100" 
+                                        value = opt
+                                        name= val._id
+                                        )
+                                        label= opt
+                div
+                    input(type="submit" value="Submit" class="py-4 px-8 text-center bg-blue-500 text-white my-4 rounded")
+
