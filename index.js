@@ -22,7 +22,7 @@ app.use("/api/form", FormRouter);
 app.use("/api/home", HomeRouter);
 app.use("/easy", FormRender);
 
-if ((process.env.NODE_ENV = "production")) {
+if ((process.env.NODE_ENV === "production")) {
   app.use(express.static("frontend/build"));
 
   app.get("*", (req, res) => {
