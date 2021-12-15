@@ -22,9 +22,9 @@ app.use("/api/form", FormRouter);
 app.use("/api/home", HomeRouter);
 app.use("/easy", FormRender);
 
-app.get("/", async (req, res) => {
-  res.render("status", { status: "Order Submitted" });
-});
+if(process.env.NODE_ENV = "production"){
+  app.use(express.static("frontend/build"))
+}
 
 const getData = async (id) => {
   const question = await FormQues.findById(id);
@@ -80,9 +80,7 @@ app.get("/responseSheet/:id/response", async (req, res) => {
   }
 });
 
-if(process.env.NODE_ENV = "production"){
-  app.use(express.static("frontend/build"))
-}
+
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
